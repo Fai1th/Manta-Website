@@ -11,3 +11,7 @@ Tokens: navy #070f19; surface #0d1825; ink #f1f6fb; muted #a8b7c8; ice blue #a9c
 Motion exception: the user explicitly requested a fully animated manta. Separate CSS wing, body, glide and tail cycles add the brand motion; a persistent pause control and reduced-motion CSS provide a still alternative. The carousel is manual, with buttons and swipe; inactive slides are inert. Native dialog provides focus containment, Escape dismissal and focus restoration. The static HTML remains readable before React loads. No external scripts or inline handlers are required by the build.
 
 Standing copy preference: run the Humanizer skill in embedded mode for UI and typography changes. Preserve real requirements, remove generic slogans and rhetorical triads, and keep labels concrete. This preference is also recorded in AGENTS.md and the local Manta project note.
+
+## Policy pages · 2026-11-08
+
+Privacy and Terms use a quiet, single-column reading layout with the existing Manrope, navy and ice-blue tokens. They are standalone HTML at /privacy.html and /terms.html so the static and Docker profiles serve the same documents without extra routing or JavaScript. The public support contact is hi@fai1th.com, supplied by the owner. Both site and dashboard link to the policies. Copy distinguishes the currently disconnected Vercel website from a deployed bot, explains transcript exports and retention exceptions, and preserves MIT rights. No additional dependencies or data collection.

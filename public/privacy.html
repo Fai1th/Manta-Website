@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Privacy policy · Manta</title><meta name="description" content="What Manta collects, who can access it, and how to request deletion."><link rel="icon" href="/assets/manta-mark.svg"><link rel="stylesheet" href="/legal.css"></head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header><a class="brand" href="/" aria-label="Manta home"><img src="/assets/manta-mark.svg" alt="" width="38" height="38">manta</a><a href="/terms.html">Terms of service</a></header>
+<main id="main" tabindex="-1">
+<h1>Privacy policy</h1><p class="date">Last updated November 8, 2026</p>
+<p class="intro">Manta is a free, open-source Discord management project maintained by Fai1th. For privacy questions or requests, email <a href="mailto:hi@fai1th.com">hi@fai1th.com</a>.</p>
+<p class="notice">The public Manta website is currently hosted on Vercel. Its dashboard is not connected to a live bot. The bot and dashboard practices below apply when a full Manta instance is deployed and connected to Discord.</p>
+<h2>Where your data lives</h2>
+<p>A full Manta instance serves one Discord server. Its operator stores settings and records in a database on the bot host. If someone runs their own copy, that operator controls their hosting, backups and any changes to the software. Contact that server’s administrators about their instance; contact us if you need help identifying the right person.</p>
+<h2>Information Manta uses</h2>
+<ul>
+<li>Signing into a connected dashboard shares your Discord user ID and display name with that instance. The sign-in requests Discord’s identify permission. The OAuth access token is used to identify you and is not saved in Manta’s database. A server-side session stores your signed-in identity and security state.</li>
+<li>Activity tracking stores message counts, active days, voice time, Discord member and channel IDs, and join and leave events. It covers eligible channels visible to the server’s everyone role while Manta is connected. Bots, AFK channels and configured exclusions are omitted. Activity tracking does not save message text.</li>
+<li>Moderation and support features store reports, appeals, ticket subjects, staff notes, reasons, member and staff IDs, timestamps, statuses and evidence links supplied through those features. Permission audits and incident records can include Discord role, channel and audit-log metadata. These records can contain information about members even when activity tracking excludes a channel.</li>
+<li>Authorized staff can request a ticket transcript containing up to 5,000 available messages, their authors, timestamps, text available to the bot and attachment links. Attachments are linked, not downloaded into an archive. Message Content access is off for the Manta application by default; some text may be unavailable. Transcript export is a separate staff action.</li>
+<li>Enabled integrations store their configuration and enough delivery history to avoid repeatedly announcing the same item. Feed providers receive requests for the configured public sources. Twitch alerts require the operator’s provider credentials. Outgoing webhook URLs are encrypted in the database and masked in dashboard responses.</li>
+</ul>
+<h2>Why it is used and who can see it</h2>
+<p>Manta uses this information to provide server management, moderation, support, participation statistics, sign-in and configured integrations. Dashboard access checks current Discord membership and permissions. Authorized staff and the instance operator can access records needed for those functions. Members can view the records and statistics made available to them through their account.</p>
+<p>Optional outgoing integrations send current-day aggregate message counts, active-member counts, voice time, joins and leaves to the receiver chosen by an administrator. Those payloads do not include member IDs, message text or moderation records. Receivers handle delivered data under their own policies.</p>
+<p>Manta does not sell Discord data, use it for advertising or use message content to train AI models. Discord, the selected infrastructure providers and any enabled integration providers process information needed to supply their services. See <a href="https://discord.com/privacy">Discord’s privacy policy</a> and <a href="https://vercel.com/legal/privacy-policy">Vercel’s privacy policy</a>.</p>
+<h2>Website storage and technical logs</h2>
+<p>The public site saves your animation preference in your browser as <code>manta-motion</code>. It includes no advertising pixels or third-party analytics scripts. The hosting provider can process technical request information, including IP addresses and browser details, to deliver and protect the site.</p>
+<p>A connected dashboard uses an essential, HTTP-only session cookie. Sessions expire after eight hours; signing out deletes the server-side session. The bot host may keep infrastructure or security logs under its own settings. Emailing support shares your message and email address with us and our email provider so we can respond.</p>
+<h2>Retention</h2>
+<p>The default retention setting is 90 days; administrators can choose 30 to 365 days. Routine cleanup removes older activity and join/leave history, and records whose last update is outside that window. Active membership entries remain while the member is present. Active, failed or applying incidents and scheduled, sending or review-required jobs remain until handled. Expired sessions are cleaned up separately.</p>
+<p>Configuration and integration delivery state remain while needed by the instance. Removing Manta from Discord stops new collection but does not erase the database on its host. Backups and downloaded ticket transcripts are separate copies; their operators or recipients must manage their retention.</p>
+<h2>Your choices and requests</h2>
+<p>Ask your server’s administrators about channel exclusions, retention, integrations or removing the bot. To request access, correction or deletion of your information, email <a href="mailto:hi@fai1th.com">hi@fai1th.com</a> with your Discord user ID, the server involved and what you need. We may need to verify that the request concerns your account and coordinate with the instance operator. We will explain any information that must be retained for an active safety matter or legal obligation.</p>
+<p>Do not send passwords, bot tokens, identity documents or private case details in a public issue. Manta is intended for people who meet Discord’s minimum age requirements. If you believe it has collected data from someone below that age, contact us.</p>
+<h2>Changes and contact</h2>
+<p>Updates will appear here with a revised date. Report privacy concerns, suspected misuse or security issues to <a href="mailto:hi@fai1th.com">hi@fai1th.com</a>.</p>
+</main>
+<footer><a href="/">Manta home</a><a href="/terms.html">Terms of service</a><a href="mailto:hi@fai1th.com">Contact support</a><a href="https://github.com/Fai1th/Manta">Source code</a></footer>
+</body></html>
