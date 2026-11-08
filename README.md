@@ -10,7 +10,15 @@ Hosting is independent of the license. You can run Manta on compatible infrastru
 
 The public product site lives at `/`; the management application lives at `/dashboard`. Discord login returns to `/dashboard`. The landing page takes broad composition cues from the user-provided bleed.bot reference, with original Manta copy, the supplied ray mark, navy/ice-blue colors, real product evidence, searchable commands and native FAQ disclosures. No Bleed assets, copy, testimonials or user counts are copied.
 
-## Deploy without running anything on your computer
+## Deploy the public website on Vercel
+
+Import this repository and deploy `main`. The checked-in `vercel.json` selects the Other/static preset, runs `npm run build:vercel`, and publishes `dist`. No Discord token, OAuth secret, session secret or database is needed for this website-only deployment. `/` serves the public site; `/dashboard` explains that the management backend is not connected. The static `/api/me` response contains only that deployment status, never a user session or credentials.
+
+The repository's Dockerfile starts the full bot/API/database app. Letting Vercel auto-detect that Dockerfile selects the Container preset instead of the static website. A successful image build does not establish that its runtime is configured or its data will persist. The explicit static configuration keeps the public site independent of the bot's runtime requirements.
+
+This Vercel mode does **not** run the bot, Discord login or management API. Use the full app's URL for management after deploying its backend. Connecting a separately hosted backend to the Vercel domain requires an explicit proxy/origin configuration; no arbitrary backend destination is configured automatically.
+
+## Deploy the full app without running anything on your computer
 
 1. Connect **this repository** to a cloud host that supports a continuously running Docker web service and a persistent volume. Choose Docker deployment using the included `Dockerfile`.
 2. Mount the persistent volume at `/data`. Run exactly **one** replica and disable sleeping. Let the host terminate HTTPS and forward traffic to the service port.
@@ -24,7 +32,7 @@ The container downloads an exact public backend commit, installs locked dependen
 
 When updating the backend, first test and push Manta. Then update the full backend SHA in this Dockerfile, test the website against it, commit and push this repo. This explicit pin prevents an unreviewed backend update silently changing a deployment. A host connected only to this repository won't redeploy solely because the Manta repo changes.
 
-For source checks: `npm run check` and `npm test`. To preview during development with sibling checkouts, run Manta with `WEB_DIR` set to this repo's absolute `public` path. Development preview is optional and not needed by server staff.
+For source checks, first run `npm ci --ignore-scripts`, then `npm run check` and `npm test`. `npm run build:vercel` creates the static output. To preview the full app during development with sibling checkouts, run Manta with `WEB_DIR` set to this repo's absolute `public` path. Development preview is optional and not needed by server staff.
 
 ## Dashboard
 

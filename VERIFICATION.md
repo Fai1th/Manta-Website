@@ -10,3 +10,9 @@
 - Public-site browser checks: community filter plus `support` search showed only `/ticket`; an unmatched search showed the empty state; the FAQ answer expanded; Open dashboard reached `/dashboard` and displayed the existing management app. The final homepage was visually inspected and captured. A later public-page viewport override did not change the measured width, so narrow-screen visual verification of the final landing page remains unconfirmed; the earlier dashboard mobile check is separate evidence.
 
 Still unverified: live Discord OAuth and API actions, production volume backup/restore, cloud deployment secrets/TLS/proxy configuration, and a full assistive-technology audit. GitHub CI completion and the final public-page browser results should be checked against the current commit rather than inferred from this checklist.
+
+## Vercel static deployment repair
+
+2026-11-08: the deployed public URL returned HTTP 500 `FUNCTION_INVOCATION_FAILED`, while Vercel showed the latest commit as Ready with the Container preset. Deployment/runtime log access was denied by the connected Vercel account, so the exact container exception was not verified. The root Dockerfile starts a production bot/API/SQLite process with mandatory runtime settings; it is not a standalone static website deployment.
+
+The explicit Vercel profile selects Other/static, builds `dist`, bundles Bootstrap locally, rewrites `/dashboard`, and serves a nonauthenticated website-only status at `/api/me`. Regression checks execute the build with a dummy runtime secret, verify output/assets/routes, and execute the dashboard script against that status to confirm the backend-disconnected explanation and absence of staff API calls. Docker and its full-app smoke test remain separate coverage. No Discord credentials, ephemeral production database, weakened startup validation or fake connected state were added to make the website load.

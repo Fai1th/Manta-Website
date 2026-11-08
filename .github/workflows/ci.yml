@@ -10,7 +10,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
       - run: npm run check
+      - run: npm run build:vercel
       - run: npm test
       - run: docker build --tag manta-dashboard:check .
       - name: Verify root-mounted volume and both website routes
