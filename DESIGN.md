@@ -11,3 +11,11 @@ Structure: sidebar, account header, task title, relevant actions, data tables/de
 Security: same-origin cookies, backend permission enforcement, no client secrets, escaped untrusted HTML, CSRF and origin checks, no inline event handlers and no external scripts. UI visibility is not an access control. Staff transcripts are protected downloads.
 
 Validated decisions and limitations belong in the repository's verification notes; screenshots of fixture data must be explicitly labeled and must not be represented as real server results. Automated checks and manual QA do not imply full accessibility or security certification.
+
+## Public product site
+
+User-approved direction: borrow broad product-site composition from `https://bleed.bot/`, retain Manta's own identity and feature scope. Reference inspected visually and textually on 2026-11-08. Manta's desktop hero is a left-aligned task promise with the supplied ray artwork on the right; a varied feature grid, real dashboard evidence, a command catalogue, FAQs and a closing action follow. No third-party copy/assets or fabricated community counts are used. The marketing site uses the library's Minimal Product genre and Page Structures guidance; the operational dashboard remains Enterprise Dashboard.
+
+Design read: a product site for Discord server owners, dark navy with ice-blue accents and restrained ocean language. Dials: design variance 5, motion intensity 2, visual density 4. Motion is limited to interactive feedback and honors reduced motion. The supplied dark logo and dark reference establish the public page's dark theme; the existing light dashboard canvas preserves readable operational tables. This is a screenshot/product-surface distinction, not alternating marketing section themes. Buttons use 8px radii, major feature/preview panels 16px. Native HTML/CSS fits this existing buildless frontend; no framework or animation dependency is added.
+
+The user identified `D:/Obsidian` as the second brain. Entry instructions were located at `D:/Obsidian/CS-Notes/AGENTS.md` and `Codex/Start Here.md`. Only those entry/workflow notes and brief/decision templates were read. Current code and executable tests remain authoritative; local vault paths are optional context for collaborators.

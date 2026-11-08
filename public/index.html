@@ -1,9 +1,64 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="description" content="Discord community management, moderation and activity analytics."><title>Manta · Server management</title><link rel="icon" href="/assets/manta.png"><link rel="stylesheet" href="/vendor/bootstrap.css"><link rel="stylesheet" href="/style.css"><script type="module" src="/app.js"></script></head>
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Manta is a free, self-hostable Discord management bot. Moderation, support, roles and community analytics, managed from one dashboard.">
+<meta name="theme-color" content="#040f21"><meta property="og:title" content="Manta · Keep your server in its element"><meta property="og:description" content="Moderation, server operations and community insights. Free software, built to self-host."><meta property="og:type" content="website">
+<title>Manta · Keep your server in its element</title><link rel="icon" href="/assets/manta.png"><link rel="preload" as="image" href="/assets/manta.png"><link rel="stylesheet" href="/landing.css"><script src="/landing.js" defer></script>
+</head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<aside class="sidebar"><a class="brand" href="/"><img class="brand-mark" src="/assets/manta.png" alt="">Manta<span>Community operations</span></a><div id="server-name" class="server-name">Discord management</div><nav aria-label="Main navigation" id="nav"></nav><div class="sidebar-foot"><span id="connection">Checking connection…</span><p>Management. Without the minigames.</p></div></aside>
-<div class="workspace"><header class="topbar"><span>SERVER WORKSPACE</span><div id="account"></div></header><main id="main" tabindex="-1"><div id="notice" role="status" aria-live="polite"></div><div id="content"><h1>Loading workspace…</h1></div></main><footer>Manta · Activity metrics cover eligible public channels while connected. Times are shown in your browser’s timezone.</footer></div>
-<dialog id="confirm"><form method="dialog"><h2>Confirm action</h2><p id="confirm-text"></p><div class="actions"><button value="cancel" class="btn btn-outline-secondary">Cancel</button><button value="confirm" class="btn btn-danger">Confirm</button></div></form></dialog>
-</body></html>
+<header class="site-header wrap">
+  <a class="wordmark" href="/" aria-label="Manta home"><img src="/assets/manta.png" width="44" height="44" alt=""><span>manta</span></a>
+  <nav aria-label="Main navigation"><a href="#features">Features</a><a href="#commands">Commands</a><a href="#faq">FAQ</a><a href="https://github.com/Fai1th/Manta">Source <span aria-hidden="true">↗</span></a></nav>
+  <a class="button button-small" href="/dashboard">Open dashboard <span aria-hidden="true">↗</span></a>
+</header>
+<main id="main">
+  <section class="hero wrap" aria-labelledby="hero-title">
+    <div class="hero-copy"><p class="overline">DISCORD MANAGEMENT, IN FLOW</p><h1 id="hero-title">Keep your server<br>in its <em>element.</em></h1><p class="hero-description">Moderation, daily operations, and community insights.<br>One Manta. A clearer way to run your server.</p><div class="hero-actions"><a class="button" href="/dashboard">Open dashboard <span aria-hidden="true">↗</span></a><a class="text-link" href="#features">Explore features <span aria-hidden="true">↓</span></a></div></div>
+    <div class="hero-art"><img src="/assets/manta.png" width="1254" height="1254" fetchpriority="high" alt="Manta's silver and blue ray on a deep navy background"></div>
+  </section>
+  <div class="capability-line wrap" aria-label="Manta capabilities"><span>Moderation with context</span><span>Community analytics</span><span>Everyday automation</span><span>Free & self-hostable</span></div>
+  <section id="features" class="features wrap" aria-labelledby="features-title">
+    <div class="section-heading"><h2 id="features-title">Less to juggle.<br>More room for your community.</h2><p>Give your team a shared place to handle the work that keeps a server running.</p></div>
+    <div class="feature-grid">
+      <article class="feature feature-moderation"><div class="feature-symbol" aria-hidden="true">⌁</div><h3>A steady hand<br>when things get busy.</h3><p>Warnings, timeouts, bans, reports and appeals. Keep the reason, evidence link, and member history together.</p><ul class="feature-list"><li>Searchable moderation cases</li><li>Private member reports & appeals</li><li>Incident controls with saved settings</li></ul><a class="text-link" href="#commands">See moderation commands <span aria-hidden="true">↗</span></a></article>
+      <article class="feature feature-operations"><div class="feature-symbol" aria-hidden="true">≋</div><h3>The routine work,<br>already in motion.</h3><p>Welcome members, publish role menus, schedule announcements, and keep support requests moving.</p><div class="tool-stack"><span>Self-service roles</span><span>Private support tickets</span><span>Scheduled announcements</span><span>Weekly staff digests</span></div></article>
+      <article class="feature feature-security"><h3>Know what changed.</h3><p>Review server changes, spot sensitive permissions, and respond to join spikes. Restore saved channel settings after an incident.</p><p class="feature-footnote">Works alongside Discord AutoMod and raid protection.</p></article>
+      <article class="feature feature-stats"><h3>See the community<br>behind the numbers.</h3><p>Track participation, voice presence, joins and returning members. Compare periods and see which channels bring people together.</p><p class="feature-footnote">Activity counts without storing message text.</p></article>
+    </div>
+  </section>
+  <section class="workspace-section wrap" aria-labelledby="workspace-title">
+    <div class="section-heading"><p class="overline">YOUR SERVER, WITH PERSPECTIVE</p><h2 id="workspace-title">A clear view.<br>Above the noise.</h2><p>Handle cases, tune settings, and follow your server's activity in the browser. Your PC can stay off.</p></div>
+    <figure class="product-preview"><a href="/assets/dashboard-preview.jpg" aria-label="View full-size Manta dashboard preview with test data"><img src="/assets/dashboard-preview.jpg" width="1254" height="710" loading="lazy" alt="The actual Manta dashboard showing staff navigation, activity overview and channel participation with labeled QA test data"></a><figcaption><span>Manta management dashboard</span><span>Preview uses test data, not a live community.</span></figcaption></figure>
+    <div class="workflow"><div><span class="workflow-label">Connect</span><p>Deploy your instance and connect your Discord application.</p></div><div><span class="workflow-label">Configure</span><p>Choose staff channels, roles, tracking exclusions and routines.</p></div><div><span class="workflow-label">Manage</span><p>Run daily operations with permissions checked on every action.</p></div></div>
+  </section>
+  <section id="commands" class="commands wrap" aria-labelledby="commands-title">
+    <div class="section-heading"><h2 id="commands-title">Right where the<br>conversation happens.</h2><p>Use Discord commands for quick actions. Use the dashboard when you need the bigger picture.</p></div>
+    <div class="command-controls"><div class="command-filters" role="group" aria-label="Filter commands"><button type="button" data-filter="all" aria-pressed="true">All tools</button><button type="button" data-filter="moderation" aria-pressed="false">Moderation</button><button type="button" data-filter="community" aria-pressed="false">Community</button></div><div class="command-search"><label for="command-query">Find a command</label><input id="command-query" type="search" placeholder="Search commands" autocomplete="off"></div></div>
+    <div class="command-list">
+      <article data-command data-category="moderation"><code>/manage</code><div><h3>Take action with context.</h3><p>Warn, timeout, remove a timeout, kick, ban, or add a private staff note. Requires staff permissions.</p></div><span class="command-category">Moderation</span></article>
+      <article data-command data-category="moderation"><code>/cases</code><div><h3>Review member history.</h3><p>Find the most recent moderation cases recorded for a member. Staff only.</p></div><span class="command-category">Moderation</span></article>
+      <article data-command data-category="moderation"><code>/report</code><div><h3>Raise a concern privately.</h3><p>Send a report to staff. You can also report a message from its Apps context menu.</p></div><span class="command-category">Moderation</span></article>
+      <article data-command data-category="moderation"><code>/appeal</code><div><h3>Ask for another look.</h3><p>Submit a reason for staff to reconsider one of your moderation cases.</p></div><span class="command-category">Moderation</span></article>
+      <article data-command data-category="community"><code>/ticket</code><div><h3>Make room for support.</h3><p>Open a private support channel with the configured staff team.</p></div><span class="command-category">Community</span></article>
+      <article data-command data-category="community"><code>/role</code><div><h3>Find your people.</h3><p>Toggle an approved self-service role. Sensitive permissions remain staff-controlled.</p></div><span class="command-category">Community</span></article>
+      <article data-command data-category="community"><code>/stats</code><div><h3>See your participation.</h3><p>Check your recent message and voice activity in eligible channels.</p></div><span class="command-category">Community</span></article>
+    </div><p id="command-empty" class="command-empty" hidden>No commands match. Try another search or category.</p><p id="command-count" class="sr-only" role="status" aria-live="polite">7 commands shown.</p>
+  </section>
+  <section id="faq" class="faq-section wrap" aria-labelledby="faq-title">
+    <div class="section-heading"><h2 id="faq-title">A few things<br>worth knowing.</h2></div>
+    <div class="faq-list">
+      <details><summary>Is Manta free?</summary><p>The software is free to use and its source is available on GitHub. Your cloud host may charge for running it and storing data. There are no paid feature tiers in Manta.</p></details>
+      <details><summary>Does my computer have to stay on?</summary><p>No. The bot and dashboard run together on your cloud host. Use an always-running container with persistent storage so events are tracked while you're away.</p></details>
+      <details><summary>Can I manage everything from the website?</summary><p>Daily operations and settings are managed through the dashboard. Creating the Discord application, granting its permissions, and configuring cloud secrets happen in Discord and your host.</p></details>
+      <details><summary>What does Manta track?</summary><p>Observed message counts, active days, voice presence, joins/leaves, and participation trends in eligible public channels. Bots, AFK channels and configured exclusions are omitted. Activity metrics do not store message text; support transcript exports are a separate staff action.</p></details>
+      <details><summary>Can I add it to multiple servers?</summary><p>This version is built for one server per deployed instance. You can deploy separate instances for separate servers, each with its own database and configuration.</p></details>
+      <details><summary>Does it include leveling or minigames?</summary><p>Manta focuses on server management and meaningful activity statistics. There are no RPG systems, XP economies or minigames.</p></details>
+    </div>
+  </section>
+  <section class="closing wrap"><img src="/assets/manta.png" width="88" height="88" loading="lazy" alt=""><div><h2>Give your server<br>a steady current.</h2><p>Your community. Your configuration. Your Manta.</p></div><a class="button" href="/dashboard">Open dashboard <span aria-hidden="true">↗</span></a></section>
+</main>
+<footer class="site-footer wrap"><a class="wordmark" href="/" aria-label="Manta home"><img src="/assets/manta.png" width="36" height="36" alt=""><span>manta</span></a><p>Built for the people behind the server.</p><div><a href="https://github.com/Fai1th/Manta">Bot source</a><a href="https://github.com/Fai1th/Manta#cloud-configuration">Deployment guide</a><a href="https://github.com/Fai1th/Manta#data-and-limits">Data & privacy</a></div></footer>
+</body>
+</html>

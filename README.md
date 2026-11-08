@@ -2,6 +2,8 @@
 
 Manta's web control panel, built around the supplied manta-ray mark and navy/blue/white identity. The [Manta backend](https://github.com/Fai1th/Manta) powers its real Discord actions and persistent records. No fake statistics or token-entry forms are shipped.
 
+The public product site lives at `/`; the management application lives at `/dashboard`. Discord login returns to `/dashboard`. The landing page takes broad composition cues from the user-provided bleed.bot reference, with original Manta copy, the supplied ray mark, navy/ice-blue colors, real product evidence, searchable commands and native FAQ disclosures. No Bleed assets, copy, testimonials or user counts are copied.
+
 ## Deploy without running anything on your computer
 
 1. Connect **this repository** to a cloud host that supports a continuously running Docker web service and a persistent volume. Choose Docker deployment using the included `Dockerfile`.
@@ -9,6 +11,8 @@ Manta's web control panel, built around the supplied manta-ray mark and navy/blu
 3. Add the environment variables listed in the [backend configuration guide](https://github.com/Fai1th/Manta#cloud-configuration): Discord application ID, client secret, bot token, guild ID, random session secret, external HTTPS URL, and proxy hop count. Set `NODE_ENV=production` and `DATA_DIR=/data`. Keep credentials in the host's secret store.
 4. Set the application's OAuth2 redirect to `https://YOUR_DOMAIN/auth/callback`, enable the needed intents, and install the bot with the documented permissions and scopes.
 5. Deploy and open the resulting URL. Sign in with Discord. Configure staff logging, support roles, tracking exclusions, onboarding and scheduled digests through the dashboard.
+
+Recommended initial host: Railway Hobby. Connect this repository as a Docker service, use one replica, leave Serverless/sleeping disabled, mount `/data`, and set the healthcheck path to `/healthz`. Set `RAILWAY_RUN_UID=0` so the entrypoint can initialize Railway's root-mounted volume; it then drops to the unprivileged `node` user before starting Manta. Keep the default image start command. Generate the HTTPS domain, use that origin as `PUBLIC_URL`, and configure the same origin in Discord's OAuth redirect. Set host usage alerts/limits appropriate to your budget. Railway's subscription minimum is not a promise of the final resource bill. See [Railway volumes](https://docs.railway.com/volumes), [service behavior](https://docs.railway.com/overview/advanced-concepts) and [pricing](https://railway.com/pricing).
 
 The container downloads an exact public backend commit, installs locked dependencies and adds this website. Everything shares one HTTPS origin: static files, login and the bot-control API. There is no browser-stored bot token, separate API credential, local tunnel, or local server needed in production. The cloud host is still a computer running your code and can charge for that service.
 

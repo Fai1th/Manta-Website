@@ -13,3 +13,11 @@ jobs:
       - run: npm run check
       - run: npm test
       - run: docker build --tag manta-dashboard:check .
+      - name: Verify root-mounted volume and both website routes
+        run: |
+          docker run -d --name manta-smoke --user 0 --tmpfs /data -e SESSION_SECRET=disposable-ci-session-secret-at-least-32-characters -e PUBLIC_URL=https://manta.example -p 127.0.0.1:3000:3000 manta-dashboard:check
+          trap 'docker logs manta-smoke; docker rm -f manta-smoke' EXIT
+          curl --fail --retry 15 --retry-all-errors --retry-delay 1 http://127.0.0.1:3000/healthz
+          curl --fail http://127.0.0.1:3000/ | grep -q 'Keep your server'
+          curl --fail http://127.0.0.1:3000/dashboard | grep -q 'Server management'
+          docker exec manta-smoke sh -c 'test "$(stat -c %u /data/manta.sqlite)" = 1000'
