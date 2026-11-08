@@ -2,10 +2,10 @@ const $=s=>document.querySelector(s);
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let navigationAbort;
 let me,ref,settings,view=location.hash.slice(1)||'overview',days=7;
-const labels={overview:'Overview',moderation:'Moderation',inbox:'Reports & tickets',analytics:'Analytics',security:'Security',roles:'Roles & onboarding',automation:'Automation',settings:'Settings',member:'My account'};
+const labels={overview:'Overview',moderation:'Moderation',inbox:'Reports & tickets',analytics:'Analytics',security:'Security',roles:'Roles & onboarding',automation:'Automation',integrations:'Integrations',settings:'Settings',member:'My account'};
 function notice(message,error=false){$('#notice').className=`alert ${error?'alert-danger':'alert-success'}`;$('#notice').textContent=message;}
 async function api(path,body){const r=await fetch(`/api${path}`,{...(body===undefined&&navigationAbort?{signal:navigationAbort.signal}:{}),method:body===undefined?'GET':'POST',headers:body===undefined?{}:{'Content-Type':'application/json','X-CSRF-Token':me.csrf,'X-Request-ID':crypto.randomUUID()},...(body===undefined?{}:{body:JSON.stringify(body)})});const data=await r.json();if(!r.ok)throw new Error(data.error||'Request failed.');return data;}
-function header(title,subtitle,actions=''){return `<div class="page-head"><div><div class="eyebrow">COMMUNITY OPERATIONS</div><h1>${esc(title)}</h1><p class="subtitle">${esc(subtitle)}</p></div>${actions}</div>`;}
+function header(title,subtitle,actions=''){return `<div class="page-head"><div><h1>${esc(title)}</h1><p class="subtitle">${esc(subtitle)}</p></div>${actions}</div>`;}
 function panel(title,body){return `<section class="panel"><h2>${esc(title)}</h2>${body}</section>`;}
 function empty(text){return `<div class="empty">${esc(text)}</div>`;}
 function metric(label,value,note=''){return `<div class="metric"><span class="label">${esc(label)}</span><strong>${esc(value)}</strong><small>${esc(note)}</small></div>`;}
@@ -38,13 +38,28 @@ let renderGeneration=0;
 async function render(){
   navigationAbort?.abort(); navigationAbort=new AbortController();
   const generation=++renderGeneration;
-  $('#nav').innerHTML=Object.entries(labels).filter(([key])=>me?.manage||key==='member').map(([key,label])=>`<a href="#${key}" ${key===view?'aria-current="page"':''}>${label}</a>`).join('');
+  $('#nav').innerHTML=Object.entries(labels).filter(([key])=>me?.manage||key==='member').map(([key,label])=>`<a href="#${key}" ${key===view?'aria-current="page"':''}><img src="/assets/icons/${key}.svg" width="20" height="20" alt="">${label}</a>`).join('');
   if(me.websiteOnly){$('#content').innerHTML=websiteSetup();return;}
   if(!me.configured||!me.connected){$('#content').innerHTML=setup();return;}
   if(!me.user){$('#content').innerHTML=header('Welcome to Manta','Sign in to manage your server or review your own records.')+panel('Discord sign-in','<p>Your current Discord permissions determine which tools you can access.</p><a class="btn btn-primary" href="/auth/login">Sign in with Discord</a>');return;}
   $('#content').innerHTML='<div class="loading" role="status">Loading current server data…</div>';
-  try{if(me.manage){if(!ref)ref=await api('/admin/reference');$('#server-name').textContent=ref.name;if(generation!==renderGeneration)return;const screens={overview,moderation,inbox,analytics,security,roles,automation,settings:settingsView,member:memberView};await (screens[view]||overview)();}else{await memberView();}}catch(e){if(generation===renderGeneration){$('#content').innerHTML=panel('Could not load this page',`<p class="error-message">${esc(e.message)}</p><button id="retry" class="btn btn-outline-secondary">Try again</button>`);$('#retry').onclick=()=>render();}}
+  try{if(me.manage){if(!ref)ref=await api('/admin/reference');$('#server-name').textContent=ref.name;if(generation!==renderGeneration)return;const screens={overview,moderation,inbox,analytics,security,roles,automation,integrations:integrationsView,settings:settingsView,member:memberView};await (screens[view]||overview)();}else{await memberView();}}catch(e){if(generation===renderGeneration){$('#content').innerHTML=panel('Could not load this page',`<p class="error-message">${esc(e.message)}</p><button id="retry" class="btn btn-outline-secondary">Try again</button>`);$('#retry').onclick=()=>render();}}
 }
 async function boot(){try{me=await api('/me');$('#connection').textContent=me.connected?'Bot connected':'Bot disconnected';$('#account').innerHTML=me.user?`<span>${esc(me.user.name)}</span><button class="btn btn-outline-secondary" id="logout">Sign out</button>`:me.configured?'<a class="btn btn-primary" href="/auth/login">Sign in with Discord</a>':'<span class="muted">Setup required</span>';if($('#logout'))$('#logout').onclick=async()=>{try{await api('/logout',{});location.href='/';}catch(e){notice(e.message,true);}};await render();}catch(e){$('#content').innerHTML=panel('Connection unavailable',`<p>${esc(e.message)}</p><button id="retry" class="btn btn-primary">Retry connection</button>`);$('#retry').onclick=boot;}}
 window.addEventListener('hashchange',()=>{view=location.hash.slice(1)||'overview';render();});
 boot();
+
+async function integrationsView(){
+  const {providers,connections}=await api('/admin/integrations');
+  $('#content').innerHTML=header('Integrations','Route public updates to Discord, or send aggregate activity to your workflows.')+
+    panel('Add a connection',form('integration',select('provider','Source',providers.map(p=>({value:p.id,label:p.name})))+input('name','Connection name')+input('source','Source / endpoint','text','','Public sources only. Keep private feed credentials out of URLs.')+select('channel','Channel',channelOptions('text',false))+`<p id="provider-help" class="wide status-note"></p>`,'Add connection'))+
+    panel('Connections',table(['Name','Source','Destination','Last check','Status','Actions'],connections.map(c=>[
+      esc(c.name),esc(`${providers.find(p=>p.id===c.provider)?.name||c.provider}: ${c.source}`),esc(channelName(c.channel)),c.checked?esc(date(c.checked)):'Waiting for first check',
+      esc(!c.enabled?'Paused':c.error||(!c.seeded?'Waiting for baseline':'Active')),
+      `<button class="btn btn-outline-secondary" data-integration="${c.id}" data-action="${c.enabled?'pause':'resume'}">${c.enabled?'Pause':'Resume'}</button> <button class="btn btn-outline-danger" data-integration="${c.id}" data-action="remove">Remove</button>`
+    ])))+`<p class="status-note">Feeds check every 15 minutes; the first check saves a baseline without posting old entries. Twitch requires host credentials. Webhooks send hourly summaries of current-day activity counts, without member IDs or moderation records. The selected channel controls the connection owner's posting permissions. A failed delivery is retried on the next check.</p>`;
+  const provider=$('#provider'),source=$('#source');
+  const help=()=>{const p=providers.find(p=>p.id===provider.value);source.placeholder=p.hint;source.type=['wordpress','mastodon','rss','webhook','make','zapier'].includes(p.id)?'url':'text';$('#provider-help').textContent=p.help;};provider.onchange=help;help();
+  bindForm('integration',async d=>{await api('/admin/integrations',{provider:d.get('provider'),source:d.get('source'),name:d.get('name'),channel:d.get('channel'),enabled:true});notice('Connection added. The bot will check it on its next cycle.');await integrationsView();});
+  document.querySelectorAll('[data-integration]').forEach(button=>button.onclick=async()=>{button.disabled=true;try{await api(`/admin/integrations/${button.dataset.integration}`,{action:button.dataset.action});notice('Connection updated.');await integrationsView();}catch(error){notice(error.message,true);button.disabled=false;}});
+}

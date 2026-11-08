@@ -14,3 +14,6 @@ Vercel uses the explicit static profile in `vercel.json`, built with `npm run bu
 For design work, start with `D:/03 - Documents and Notes/Web Design Library/AGENT START.md`, then core rules and the selected genre/security notes. Use `DESIGN.md` and `VERIFICATION.md` as this project's manifest and evidence log.
 
 When available, read `D:/Obsidian/CS-Notes/Codex/Projects/Manta.md` and only its relevant linked decisions. Current source and checks take priority over remembered facts. Update the brief with actual commit/check evidence after authorized work, without secrets or production data. If the vault is unavailable, continue from repository evidence and report that limitation.
+
+## Copy and typography
+Humanize all user-facing copy before shipping UI or typography work. Use specific, conversational language, sentence case and varied sentence lengths. Remove empty slogans, staged contrasts, repetitive triads and invented claims. Apply the Humanizer skill in embedded mode; keep actual feature limits and setup requirements. This is a standing user preference for Manta.

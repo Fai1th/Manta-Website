@@ -43,3 +43,13 @@ Statistics and records begin when the connected bot observes events. See the bac
 ## Verification limits
 
 Automated checks cover script syntax and the static integration contract. Backend tests cover the protected API and persistence. Real Discord OAuth, live moderation/role changes, Docker builds, cloud TLS/proxy configuration and full screen-reader auditing require a configured deployment and test Discord server. Do not describe an undeployed repository as a live bot.
+
+## Website development
+
+The public page is now a prerendered React application. `src/Site.jsx` holds the product tour, integration directory, command finder and FAQs; `src/MantaRay.jsx` articulates a vector companion to the supplied ray mark. Embla handles swipe and carousel selection. Phosphor supplies interface icons and Simple Icons supplies platform marks. Manrope is bundled locally, including its font license. See `public/licenses` for notices; platform marks identify integrations without implying endorsement.
+
+Run `npm ci --ignore-scripts`, `npm run check`, `npm test`, then `npm run build:vercel`. Preview `dist`, not the `public` template directory. For a full backend preview, point `WEB_DIR` at the absolute `dist` directory. The Docker multi-stage build compiles the same React assets before copying them into the pinned backend. The Vercel profile still serves an anonymous disconnected dashboard until a full bot backend is deployed.
+
+The product tour has manual swipe/button navigation, a reversible sample report and a sample-period selector. Its sample data is labeled and cannot perform moderation. Integration search, category filters and detail dialogs explain each provider's requirements; actual connections are created in the authenticated dashboard. Current adapters cover GitHub, YouTube, Twitch, Reddit, Steam, WordPress, Medium, Mastodon, RSS/Atom, Zapier, Make and HTTPS webhooks/n8n. Setup and limitations are in the [backend integration guide](https://github.com/Fai1th/Manta#integrations).
+
+The animated ray has separate wing, body and tail motion. The pause control persists the visitor's preference, and the CSS honors system reduced-motion settings. The carousel does not autoplay. No third-party scripts, external fonts or tracking pixels are loaded at runtime.
