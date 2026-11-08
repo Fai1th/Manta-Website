@@ -32,7 +32,7 @@ The container downloads an exact public backend commit, installs locked dependen
 
 When updating the backend, first test and push Manta. Then update the full backend SHA in this Dockerfile, test the website against it, commit and push this repo. This explicit pin prevents an unreviewed backend update silently changing a deployment. A host connected only to this repository won't redeploy solely because the Manta repo changes.
 
-For source checks, first run `npm ci --ignore-scripts`, then `npm run check` and `npm test`. `npm run build:vercel` creates the static output. To preview the full app during development with sibling checkouts, run Manta with `WEB_DIR` set to this repo's absolute `public` path. Development preview is optional and not needed by server staff.
+For source checks, first run `npm ci --ignore-scripts`, then `npm run check` and `npm test`. `npm run build:vercel` creates the static output. To preview the full app during development with sibling checkouts, run Manta with `WEB_DIR` set to this repo's absolute `dist` path after building the website. Development preview is optional and not needed by server staff.
 
 ## Dashboard
 
