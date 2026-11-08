@@ -2,6 +2,9 @@ name: Verify Manta dashboard
 on: [push, pull_request]
 permissions:
   contents: read
+concurrency:
+  group: manta-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -24,3 +27,24 @@ jobs:
           curl --fail http://127.0.0.1:3000/ | grep -q 'Your server'
           curl --fail http://127.0.0.1:3000/dashboard | grep -q 'Server management'
           docker exec manta-smoke sh -c 'test "$(stat -c %u /data/manta.sqlite)" = 1000'
+  publish:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    env:
+      IMAGE: ghcr.io/fai1th/manta-website
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the verified commit
+        run: docker build --label "org.opencontainers.image.revision=$GITHUB_SHA" --tag "$IMAGE:$GITHUB_SHA" --tag "$IMAGE:latest" .
+      - name: Publish to GitHub Container Registry
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+          docker push "$IMAGE:$GITHUB_SHA"
+          docker push "$IMAGE:latest"
+          docker logout ghcr.io

@@ -8,6 +8,9 @@ COPY scripts ./scripts
 RUN node scripts/build-static.mjs --full-app
 
 FROM node:24-bookworm-slim
+LABEL org.opencontainers.image.source="https://github.com/Fai1th/Manta-Website" \
+      org.opencontainers.image.description="Manta Discord bot, management dashboard and public website" \
+      org.opencontainers.image.licenses="MIT"
 WORKDIR /app
 # Pin the public backend to the tested source paired with this dashboard.
 ADD https://github.com/Fai1th/Manta/archive/36eb0bbd9400f06b1ea1d9d792958dd2f0a25f00.tar.gz /tmp/manta.tar.gz

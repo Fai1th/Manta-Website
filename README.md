@@ -20,6 +20,8 @@ This Vercel mode does **not** run the bot, Discord login or management API. Use 
 
 ## Deploy the full app without running anything on your computer
 
+GitHub Actions tests each update and publishes the complete Linux amd64 container to `ghcr.io/fai1th/manta-website` after a successful push to `main`. Use the full Git commit SHA as the image tag for a fixed version; `latest` follows the last successful publication. GitHub creates new packages as private, so the package owner must make it public before a host can pull it without credentials. The image contains the public source and dependencies; configure Discord credentials only in the host, never during the image build. The registry stores the image; it does not run the bot.
+
 1. Connect **this repository** to a cloud host that supports a continuously running Docker web service and a persistent volume. Choose Docker deployment using the included `Dockerfile`.
 2. Mount the persistent volume at `/data`. Run exactly **one** replica and disable sleeping. Let the host terminate HTTPS and forward traffic to the service port.
 3. Add the environment variables listed in the [backend configuration guide](https://github.com/Fai1th/Manta#cloud-configuration): Discord application ID, client secret, bot token, guild ID, random session secret, external HTTPS URL, and proxy hop count. Set `NODE_ENV=production` and `DATA_DIR=/data`. Keep credentials in the host's secret store.
